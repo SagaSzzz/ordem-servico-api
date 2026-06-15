@@ -10,6 +10,9 @@ import java.util.List;
 public interface OrdemServicoRepository extends JpaRepository<OrdemServicoModel, Long> {
 
      public List<OrdemServicoModel> findByStatus(String ABERTA);
+     public List <OrdemServicoModel> findByClienteId(Long clienteId);
+
+     public List<OrdemServicoModel> findByEquipamentoId(Long equipamentoId);
 
 
 }

@@ -46,6 +46,13 @@ public class OrdemServicoService {
         return ordemServicoRepository.findByStatus(status);
     }
 
+    public List <OrdemServicoModel> buscarClienteId(Long clienteId){
+        return ordemServicoRepository.findByClienteId(clienteId);
+    }
+    public List <OrdemServicoModel> buscarEquipamentoId(Long equipamentoId){
+        return ordemServicoRepository.findByEquipamentoId(equipamentoId);
+    }
+
 
 
 

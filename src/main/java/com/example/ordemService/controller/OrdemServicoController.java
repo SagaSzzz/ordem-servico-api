@@ -46,6 +46,15 @@ public class OrdemServicoController {
     public List <OrdemServicoModel> buscarPorStatus(@PathVariable String status){
         return  ordemServicoService.buscarPorStatus(status);
     }
+    @GetMapping("/cliente/{clienteId}")
+    public List <OrdemServicoModel> buscarClienteId(@PathVariable Long clienteId){
+        return ordemServicoService.buscarClienteId(clienteId);
+    }
+    @GetMapping("/equipamento/{equipamentoId}")
+    public List <OrdemServicoModel> buscarEquipamentoId(@PathVariable Long equipamentoId){
+        return ordemServicoService.buscarEquipamentoId(equipamentoId);
+    }
+
 
 
 
