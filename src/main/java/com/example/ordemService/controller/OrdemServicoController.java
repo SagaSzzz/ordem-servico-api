@@ -26,18 +26,27 @@ public class OrdemServicoController {
     public List<OrdemServicoModel> listarItem(){
         return ordemServicoService.listarItem();
     }
+
     @GetMapping("/{id}")
     public OrdemServicoModel procurarId(@PathVariable Long id){
         return ordemServicoService.procurarId(id);
     }
+
     @PutMapping("/{id}")
     public OrdemServicoModel attItem(@PathVariable Long id, @RequestBody OrdemServicoModel ordem){
         return ordemServicoService.attItem(id, ordem);
     }
+
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id){
         ordemServicoService.deletar(id);
     }
+
+    @GetMapping("/status/{status}")
+    public List <OrdemServicoModel> buscarPorStatus(@PathVariable String status){
+        return  ordemServicoService.buscarPorStatus(status);
+    }
+
 
 
 

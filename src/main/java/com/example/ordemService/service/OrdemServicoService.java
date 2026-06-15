@@ -42,6 +42,11 @@ public class OrdemServicoService {
         ordemServicoRepository.delete(busca);
     }
 
+    public List <OrdemServicoModel> buscarPorStatus(String status){
+        return ordemServicoRepository.findByStatus(status);
+    }
+
+
 
 
 
