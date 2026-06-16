@@ -1,6 +1,7 @@
 package com.example.ordemService.controller;
 
 
+import com.example.ordemService.enums.StatusOrdem;
 import com.example.ordemService.model.OrdemServicoModel;
 import com.example.ordemService.service.OrdemServicoService;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class OrdemServicoController {
     }
 
     @GetMapping("/status/{status}")
-    public List <OrdemServicoModel> buscarPorStatus(@PathVariable String status){
+    public List <OrdemServicoModel> buscarPorStatus(@PathVariable StatusOrdem status){
         return  ordemServicoService.buscarPorStatus(status);
     }
     @GetMapping("/cliente/{clienteId}")

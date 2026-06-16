@@ -1,5 +1,6 @@
 package com.example.ordemService.service;
 
+import com.example.ordemService.enums.StatusOrdem;
 import com.example.ordemService.model.OrdemServicoModel;
 import com.example.ordemService.repository.OrdemServicoRepository;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,7 @@ public class OrdemServicoService {
         ordemServicoRepository.delete(busca);
     }
 
-    public List <OrdemServicoModel> buscarPorStatus(String status){
+    public List <OrdemServicoModel> buscarPorStatus(StatusOrdem status){
         return ordemServicoRepository.findByStatus(status);
     }
 

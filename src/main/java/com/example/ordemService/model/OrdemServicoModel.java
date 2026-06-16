@@ -1,5 +1,6 @@
 package com.example.ordemService.model;
 
+import com.example.ordemService.enums.StatusOrdem;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -11,10 +12,16 @@ public class OrdemServicoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String descProblema;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private StatusOrdem status;
+
     private Double valor;
+
     private LocalDate comeco;
+
     private LocalDate fim;
 
     @ManyToOne
@@ -28,13 +35,15 @@ public class OrdemServicoModel {
     public OrdemServicoModel() {
     }
 
-    public OrdemServicoModel(Long id, String descProblema, String status, double valor, LocalDate comeco, LocalDate fim) {
+    public OrdemServicoModel(Long id, String descProblema, StatusOrdem status, Double valor, LocalDate comeco, LocalDate fim, ClienteModel cliente, EquipamentoModel equipamento) {
         this.id = id;
         this.descProblema = descProblema;
         this.status = status;
         this.valor = valor;
         this.comeco = comeco;
         this.fim = fim;
+        this.cliente = cliente;
+        this.equipamento = equipamento;
     }
 
     public Long getId() {
@@ -53,11 +62,11 @@ public class OrdemServicoModel {
         this.descProblema = descProblema;
     }
 
-    public String getStatus() {
+    public StatusOrdem getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusOrdem status) {
         this.status = status;
     }
 
