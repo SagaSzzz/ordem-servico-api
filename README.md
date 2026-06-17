@@ -229,16 +229,16 @@ GET /ordemServico/equipamento/1
 
 ## Status disponíveis
 
-Atualmente os status são enviados como texto no JSON.
+Os status da ordem de serviço são controlados por um Enum, garantindo que apenas valores válidos sejam utilizados.
 
-Exemplos:
+Status disponíveis:
 
 ```txt
 ABERTA
 EM_ANDAMENTO
 FINALIZADA
 CANCELADA
-```
+````
 
 Em uma melhoria futura, os status podem ser implementados com `Enum`.
 
