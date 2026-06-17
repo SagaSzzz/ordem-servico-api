@@ -2,6 +2,9 @@ package com.example.ordemService.model;
 
 import com.example.ordemService.enums.StatusOrdem;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.time.LocalDate;
 
@@ -13,21 +16,29 @@ public class OrdemServicoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "A descricao do problema é obrigatoria")
     private String descProblema;
 
+    @NotNull(message = "O status é obrigatorio")
     @Enumerated(EnumType.STRING)
     private StatusOrdem status;
 
+    @NotNull(message = "O valor é obrigatorio")
+    @PositiveOrZero(message = "O valor nao pode ser negativo")
     private Double valor;
 
+    @NotNull(message = "A data inicial é obrigatoria")
     private LocalDate comeco;
+
 
     private LocalDate fim;
 
+    @NotNull(message = "O cliente é obrigatorio")
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private ClienteModel cliente;
 
+    @NotNull(message = "O equipamento é obrigatorio")
     @ManyToOne
     @JoinColumn(name = "equipamento_id")
     private EquipamentoModel equipamento;

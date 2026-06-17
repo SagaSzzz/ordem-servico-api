@@ -3,6 +3,7 @@ package com.example.ordemService.controller;
 import com.example.ordemService.model.ClienteModel;
 import com.example.ordemService.model.EquipamentoModel;
 import com.example.ordemService.service.EquipamentoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class EquipamentoController {
     }
 
     @PostMapping
-    public EquipamentoModel adcEquip(@RequestBody EquipamentoModel equip){
+    public EquipamentoModel adcEquip(@Valid @RequestBody EquipamentoModel equip){
         return equipamentoService.adcEquip(equip);
     }
 
@@ -31,7 +32,7 @@ public class EquipamentoController {
         return equipamentoService.procurarId(id);
     }
     @PutMapping("/{id}")
-    public EquipamentoModel attEquip(@PathVariable Long id, @RequestBody EquipamentoModel equip){
+    public EquipamentoModel attEquip(@PathVariable Long id, @Valid @RequestBody EquipamentoModel equip){
         return equipamentoService.attEquip(id, equip);
     }
     @DeleteMapping("/{id}")

@@ -2,6 +2,7 @@ package com.example.ordemService.controller;
 
 import com.example.ordemService.model.ClienteModel;
 import com.example.ordemService.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ClienteModel adcCliente(@RequestBody ClienteModel cliente){
+    public ClienteModel adcCliente(@Valid @RequestBody ClienteModel cliente){
         return clienteService.adcpessoa(cliente);
     }
 
@@ -36,7 +37,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ClienteModel atualizarId(@PathVariable Long id, @RequestBody ClienteModel cliente){
+    public ClienteModel atualizarId(@PathVariable Long id, @Valid @RequestBody ClienteModel cliente){
         return clienteService.attCliente(id, cliente);
     }
 

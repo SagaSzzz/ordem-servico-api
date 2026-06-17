@@ -1,6 +1,8 @@
 package com.example.ordemService.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
@@ -10,8 +12,16 @@ public class ClienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
+    @NotBlank(message = "O nome é obrigatorio")
     private String nome;
+
+    @NotBlank(message = "O numero é obrigatorio")
     private String telefone;
+
+    @NotBlank(message = "O email é obrigatorio")
+    @Email(message = "email invalido")
     private String email;
 
     public ClienteModel() {

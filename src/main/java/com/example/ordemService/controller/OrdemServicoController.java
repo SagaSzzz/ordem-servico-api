@@ -4,6 +4,7 @@ package com.example.ordemService.controller;
 import com.example.ordemService.enums.StatusOrdem;
 import com.example.ordemService.model.OrdemServicoModel;
 import com.example.ordemService.service.OrdemServicoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class OrdemServicoController {
     }
 
     @PostMapping
-    public OrdemServicoModel adcItem(@RequestBody OrdemServicoModel ordem){
+    public OrdemServicoModel adcItem(@Valid @RequestBody OrdemServicoModel ordem){
         return ordemServicoService.adcItem(ordem);
     }
 
@@ -34,7 +35,7 @@ public class OrdemServicoController {
     }
 
     @PutMapping("/{id}")
-    public OrdemServicoModel attItem(@PathVariable Long id, @RequestBody OrdemServicoModel ordem){
+    public OrdemServicoModel attItem(@PathVariable Long id, @Valid @RequestBody OrdemServicoModel ordem){
         return ordemServicoService.attItem(id, ordem);
     }
 
