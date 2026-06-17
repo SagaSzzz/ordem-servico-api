@@ -33,6 +33,9 @@ O sistema foi desenvolvido seguindo uma arquitetura em camadas:
 - Busca de ordens por status
 - Busca de ordens por cliente
 - Busca de ordens por equipamento
+- Status da ordem controlado com Enum
+- Validações de dados com Bean Validation
+- Tratamento de erros com ControllerAdvice
 
 ## Estrutura do projeto
 
@@ -241,9 +244,6 @@ Em uma melhoria futura, os status podem ser implementados com `Enum`.
 
 ## Melhorias futuras
 
-- Implementar `Enum` para status da ordem
-- Adicionar validações com Bean Validation
-- Melhorar tratamento de erros com `ControllerAdvice`
 - Utilizar DTOs para entrada e saída de dados
 - Padronizar respostas com `ResponseEntity`
 - Adicionar documentação com Swagger/OpenAPI
