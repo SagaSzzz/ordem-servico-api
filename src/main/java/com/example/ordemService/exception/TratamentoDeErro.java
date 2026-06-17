@@ -22,6 +22,14 @@ public class TratamentoDeErro {
             erros.put(campoErro.getField(), campoErro.getDefaultMessage());
         });
         return erros;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(RuntimeException.class)
+     public Map<String, String> tratarErroNaoEncontrado(RuntimeException erro){
+        Map <String, String> resposta = new HashMap<>();
+        resposta.put("erro", erro.getMessage());
+        return resposta;
 
     }
 
