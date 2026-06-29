@@ -120,4 +120,6 @@ public class OrdemServicoModel {
     public void setEquipamento(EquipamentoModel equipamento) {
         this.equipamento = equipamento;
     }
+
+
 }

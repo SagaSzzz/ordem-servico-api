@@ -1,5 +1,7 @@
 package com.example.ordemService.controller;
 
+import com.example.ordemService.dto.ClientRequestDTO;
+import com.example.ordemService.dto.ClientResponseDTO;
 import com.example.ordemService.model.ClienteModel;
 import com.example.ordemService.service.ClienteService;
 import jakarta.validation.Valid;
@@ -18,17 +20,18 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ClienteModel adcCliente(@Valid @RequestBody ClienteModel cliente){
-        return clienteService.adcpessoa(cliente);
+    public ClientResponseDTO adcCliente(@Valid @RequestBody ClientRequestDTO dto){
+        return clienteService.adcClientDto(dto);
     }
 
     @GetMapping
-    public List <ClienteModel> buscarCliente(){
-        return clienteService.listarCliente();
+    public List <ClientResponseDTO> buscarCliente(){
+        return clienteService.listarClienteDto();
     }
+
     @GetMapping("/{id}")
-    public ClienteModel procurarId(@PathVariable Long id){
-        return clienteService.procurarId(id);
+    public ClientResponseDTO  procurarId(@PathVariable Long id){
+        return clienteService.procurarClienteDto(id);
     }
 
     @DeleteMapping("/{id}")
@@ -37,8 +40,8 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ClienteModel atualizarId(@PathVariable Long id, @Valid @RequestBody ClienteModel cliente){
-        return clienteService.attCliente(id, cliente);
+    public ClientResponseDTO atualizarId(@PathVariable Long id, @Valid @RequestBody ClientRequestDTO dto){
+        return clienteService.atualizarDadosDto(id, dto);
     }
 
 
