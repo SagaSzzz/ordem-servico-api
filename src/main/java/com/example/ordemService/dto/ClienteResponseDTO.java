@@ -1,15 +1,12 @@
 package com.example.ordemService.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-
-public class ClientResponseDTO {
+public class ClienteResponseDTO {
     private Long id;
     private String nome;
     private String telefone;
     private String email;
 
-    public ClientResponseDTO(Long id, String nome, String telefone, String email) {
+    public ClienteResponseDTO(Long id, String nome, String telefone, String email) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;

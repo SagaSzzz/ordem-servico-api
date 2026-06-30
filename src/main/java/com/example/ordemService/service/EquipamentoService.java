@@ -1,5 +1,7 @@
 package com.example.ordemService.service;
 
+import com.example.ordemService.dto.EquipamentoRequestDTO;
+import com.example.ordemService.dto.EquipamentoResponseDTO;
 import com.example.ordemService.model.EquipamentoModel;
 import com.example.ordemService.repository.EquipamentoRepository;
 import org.springframework.stereotype.Service;
@@ -15,33 +17,49 @@ public class EquipamentoService {
         this.equipamentoRepository = equipamentoRepository;
     }
 
-    public EquipamentoModel adcEquip(EquipamentoModel equip){
-        return equipamentoRepository.save(equip);
+    private EquipamentoResponseDTO converterParaDto(EquipamentoModel equipamento) {
+        return new EquipamentoResponseDTO(equipamento.getId(), equipamento.getNome(), equipamento.getMarca(), equipamento.getModelo(), equipamento.getDefeito());
+    }
+
+    public EquipamentoResponseDTO adcEquipDto(EquipamentoRequestDTO dto){
+       EquipamentoModel equipamento = new EquipamentoModel();
+       equipamento.setNome(dto.getNome());
+       equipamento.setMarca(dto.getMarca());
+       equipamento.setModelo(dto.getModelo());
+       equipamento.setDefeito(dto.getDefeito());
+       EquipamentoModel equipamentoSalvo = equipamentoRepository.save(equipamento);
+       return converterParaDto(equipamentoSalvo);
+    }
+
+    public List<EquipamentoResponseDTO> buscarEquipDto(){
+        return equipamentoRepository.findAll()
+                .stream()
+                .map(equipamento -> converterParaDto(equipamento))
+                .toList();
     }
 
 
-    public List<EquipamentoModel> buscarEquip(){
-        return equipamentoRepository.findAll();
-    }
-
-
-    public EquipamentoModel procurarId(Long id){
-        return equipamentoRepository.findById(id).orElseThrow(()->new RuntimeException("EQUIPAMENTO NAO ENCONTRADO"));
+    public EquipamentoResponseDTO procurarIdDto(Long id){
+        EquipamentoModel equipamento =  equipamentoRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("EQUIPAMENTO NAO ENCONTRADO"));
+        return converterParaDto(equipamento);
     }
 
 
     public void deletar(Long id){
-        EquipamentoModel busca = procurarId(id);
-        equipamentoRepository.delete(busca);
+        EquipamentoModel equipamento = equipamentoRepository.findById(id).
+                orElseThrow(()->new RuntimeException("EQUIPAMENTO NAO ENCONTRADO"));
+        equipamentoRepository.delete(equipamento);
     }
-    public EquipamentoModel attEquip(Long id, EquipamentoModel atualizado){
-        EquipamentoModel atualizado1 = equipamentoRepository.findById(id)
+    public EquipamentoResponseDTO atualizarEquipamentoDto(Long id, EquipamentoRequestDTO dto) {
+        EquipamentoModel equipamentoAtualizado = equipamentoRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("EQUIPAMENTO NAO ENCONTRADO"));
-        atualizado1.setMarca(atualizado.getMarca());
-        atualizado1.setDefeito(atualizado.getDefeito());
-        atualizado1.setNome(atualizado.getNome());
-        atualizado1.setModelo(atualizado.getModelo());
-        return equipamentoRepository.save(atualizado1);
+        equipamentoAtualizado.setMarca(dto.getMarca());
+        equipamentoAtualizado.setDefeito(dto.getDefeito());
+        equipamentoAtualizado.setNome(dto.getNome());
+       equipamentoAtualizado.setModelo(dto.getModelo());
+        EquipamentoModel equipamento =  equipamentoRepository.save(equipamentoAtualizado);
+        return converterParaDto(equipamento);
     }
 
 

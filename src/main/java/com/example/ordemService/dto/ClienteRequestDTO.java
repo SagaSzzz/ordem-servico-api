@@ -3,7 +3,7 @@ package com.example.ordemService.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public class ClientRequestDTO {
+public class ClienteRequestDTO {
     @NotBlank(message = "O nome é obrigatorio")
     private String nome;
 

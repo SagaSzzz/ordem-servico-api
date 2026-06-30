@@ -1,8 +1,7 @@
 package com.example.ordemService.controller;
 
-import com.example.ordemService.dto.ClientRequestDTO;
-import com.example.ordemService.dto.ClientResponseDTO;
-import com.example.ordemService.model.ClienteModel;
+import com.example.ordemService.dto.ClienteRequestDTO;
+import com.example.ordemService.dto.ClienteResponseDTO;
 import com.example.ordemService.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -20,17 +19,17 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ClientResponseDTO adcCliente(@Valid @RequestBody ClientRequestDTO dto){
+    public ClienteResponseDTO adcCliente(@Valid @RequestBody ClienteRequestDTO dto){
         return clienteService.adcClientDto(dto);
     }
 
     @GetMapping
-    public List <ClientResponseDTO> buscarCliente(){
+    public List <ClienteResponseDTO> buscarCliente(){
         return clienteService.listarClienteDto();
     }
 
     @GetMapping("/{id}")
-    public ClientResponseDTO  procurarId(@PathVariable Long id){
+    public ClienteResponseDTO procurarId(@PathVariable Long id){
         return clienteService.procurarClienteDto(id);
     }
 
@@ -40,7 +39,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ClientResponseDTO atualizarId(@PathVariable Long id, @Valid @RequestBody ClientRequestDTO dto){
+    public ClienteResponseDTO atualizarId(@PathVariable Long id, @Valid @RequestBody ClienteRequestDTO dto){
         return clienteService.atualizarDadosDto(id, dto);
     }
 

@@ -1,7 +1,7 @@
 package com.example.ordemService.controller;
 
-import com.example.ordemService.model.ClienteModel;
-import com.example.ordemService.model.EquipamentoModel;
+import com.example.ordemService.dto.EquipamentoRequestDTO;
+import com.example.ordemService.dto.EquipamentoResponseDTO;
 import com.example.ordemService.service.EquipamentoService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -19,25 +19,33 @@ public class EquipamentoController {
     }
 
     @PostMapping
-    public EquipamentoModel adcEquip(@Valid @RequestBody EquipamentoModel equip){
-        return equipamentoService.adcEquip(equip);
+    public EquipamentoResponseDTO adcEquip(@Valid @RequestBody EquipamentoRequestDTO dto) {
+        return equipamentoService.adcEquipDto(dto);
     }
 
+
     @GetMapping
-    public List <EquipamentoModel> listarEquip(){
-        return equipamentoService.buscarEquip();
+    public List<EquipamentoResponseDTO> listarEquip() {
+        return equipamentoService.buscarEquipDto();
     }
+
+
     @GetMapping("/{id}")
-    public EquipamentoModel procurarId(@PathVariable Long id){
-        return equipamentoService.procurarId(id);
+    public EquipamentoResponseDTO procurarId(@PathVariable Long id) {
+        return equipamentoService.procurarIdDto(id);
     }
-    @PutMapping("/{id}")
-    public EquipamentoModel attEquip(@PathVariable Long id, @Valid @RequestBody EquipamentoModel equip){
-        return equipamentoService.attEquip(id, equip);
-    }
+
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id){
+    public void deletar(@PathVariable Long id) {
         equipamentoService.deletar(id);
     }
 
+
+    @PutMapping("/{id}")
+    public EquipamentoResponseDTO atualizarEquipamento(@PathVariable Long id, @Valid @RequestBody EquipamentoRequestDTO dto) {
+
+        return equipamentoService.atualizarEquipamentoDto(id, dto);
+    }
+
 }
+

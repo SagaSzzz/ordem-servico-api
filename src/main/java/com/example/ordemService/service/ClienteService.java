@@ -1,10 +1,9 @@
 package com.example.ordemService.service;
 
-import com.example.ordemService.dto.ClientRequestDTO;
-import com.example.ordemService.dto.ClientResponseDTO;
+import com.example.ordemService.dto.ClienteRequestDTO;
+import com.example.ordemService.dto.ClienteResponseDTO;
 import com.example.ordemService.model.ClienteModel;
 import com.example.ordemService.repository.ClienteRepository;
-import jakarta.websocket.ClientEndpointConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +16,11 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    private ClientResponseDTO converterParaDto(ClienteModel cliente) {
-        return new ClientResponseDTO(cliente.getId(), cliente.getNome(), cliente.getTelefone(), cliente.getEmail());
+    private ClienteResponseDTO converterParaDto(ClienteModel cliente) {
+        return new ClienteResponseDTO(cliente.getId(), cliente.getNome(), cliente.getTelefone(), cliente.getEmail());
     }
 
-    public ClientResponseDTO adcClientDto(ClientRequestDTO dto) {
+    public ClienteResponseDTO adcClientDto(ClienteRequestDTO dto) {
         ClienteModel cliente = new ClienteModel();
         cliente.setNome(dto.getNome());
         cliente.setTelefone(dto.getTelefone());
@@ -30,14 +29,14 @@ public class ClienteService {
         return converterParaDto(clienteSalvo);
     }
 
-    public List <ClientResponseDTO> listarClienteDto(){
+    public List <ClienteResponseDTO> listarClienteDto(){
             return clienteRepository.findAll()
                     .stream()
                     .map(cliente -> converterParaDto(cliente))
                     .toList();
     }
 
-    public ClientResponseDTO procurarClienteDto(Long id){
+    public ClienteResponseDTO procurarClienteDto(Long id){
         ClienteModel cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("CLIENTE NAO ENCONTRADO"));
          return converterParaDto(cliente);
@@ -49,7 +48,7 @@ public class ClienteService {
       clienteRepository.delete(cliente);
 
     }
-    public ClientResponseDTO atualizarDadosDto(Long id, ClientRequestDTO dto){
+    public ClienteResponseDTO atualizarDadosDto(Long id, ClienteRequestDTO dto){
         ClienteModel existente = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("CLIENTE NAO ENCONTRADO"));
                 existente.setEmail(dto.getEmail());
