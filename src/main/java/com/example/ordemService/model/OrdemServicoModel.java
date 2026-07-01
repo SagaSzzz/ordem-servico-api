@@ -15,22 +15,11 @@ public class OrdemServicoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank(message = "A descricao do problema é obrigatoria")
     private String descProblema;
-
-    @NotNull(message = "O status é obrigatorio")
     @Enumerated(EnumType.STRING)
     private StatusOrdem status;
-
-    @NotNull(message = "O valor é obrigatorio")
-    @PositiveOrZero(message = "O valor nao pode ser negativo")
     private Double valor;
-
-    @NotNull(message = "A data inicial é obrigatoria")
     private LocalDate comeco;
-
-
     private LocalDate fim;
 
     @NotNull(message = "O cliente é obrigatorio")

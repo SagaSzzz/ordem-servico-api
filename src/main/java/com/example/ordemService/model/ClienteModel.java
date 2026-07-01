@@ -13,15 +13,10 @@ public class ClienteModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @NotBlank(message = "O nome é obrigatorio")
     private String nome;
 
-    @NotBlank(message = "O numero é obrigatorio")
     private String telefone;
 
-    @NotBlank(message = "O email é obrigatorio")
-    @Email(message = "email invalido")
     private String email;
 
     public ClienteModel() {

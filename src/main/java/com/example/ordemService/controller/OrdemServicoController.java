@@ -1,8 +1,9 @@
 package com.example.ordemService.controller;
 
 
+import com.example.ordemService.dto.OrdemServicoRequestDTO;
+import com.example.ordemService.dto.OrdemServicoResponseDTO;
 import com.example.ordemService.enums.StatusOrdem;
-import com.example.ordemService.model.OrdemServicoModel;
 import com.example.ordemService.service.OrdemServicoService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -20,23 +21,23 @@ public class OrdemServicoController {
     }
 
     @PostMapping
-    public OrdemServicoModel adcItem(@Valid @RequestBody OrdemServicoModel ordem){
-        return ordemServicoService.adcItem(ordem);
+    public OrdemServicoResponseDTO adicionarItem(@Valid @RequestBody OrdemServicoRequestDTO dto){
+        return ordemServicoService.adicionarItemDto(dto);
     }
 
     @GetMapping
-    public List<OrdemServicoModel> listarItem(){
-        return ordemServicoService.listarItem();
+    public List<OrdemServicoResponseDTO> listarItem(){
+        return ordemServicoService.listarItemDto();
     }
 
     @GetMapping("/{id}")
-    public OrdemServicoModel procurarId(@PathVariable Long id){
-        return ordemServicoService.procurarId(id);
+    public OrdemServicoResponseDTO procurarId(@PathVariable Long id){
+        return ordemServicoService.procurarIdDto(id);
     }
 
     @PutMapping("/{id}")
-    public OrdemServicoModel attItem(@PathVariable Long id, @Valid @RequestBody OrdemServicoModel ordem){
-        return ordemServicoService.attItem(id, ordem);
+    public OrdemServicoResponseDTO atualizarItem(@PathVariable Long id, @Valid @RequestBody OrdemServicoRequestDTO dto){
+        return ordemServicoService.atualizarItemDto(id, dto);
     }
 
     @DeleteMapping("/{id}")
@@ -44,17 +45,23 @@ public class OrdemServicoController {
         ordemServicoService.deletar(id);
     }
 
+
+
     @GetMapping("/status/{status}")
-    public List <OrdemServicoModel> buscarPorStatus(@PathVariable StatusOrdem status){
-        return  ordemServicoService.buscarPorStatus(status);
+    public List <OrdemServicoResponseDTO> buscarPorStatus(@PathVariable StatusOrdem status){
+        return  ordemServicoService.buscarPorStatusDto(status);
     }
+
+
     @GetMapping("/cliente/{clienteId}")
-    public List <OrdemServicoModel> buscarClienteId(@PathVariable Long clienteId){
-        return ordemServicoService.buscarClienteId(clienteId);
+    public List <OrdemServicoResponseDTO> buscarClienteId(@PathVariable Long clienteId){
+        return ordemServicoService.buscarClienteIdDto(clienteId);
     }
+
+
     @GetMapping("/equipamento/{equipamentoId}")
-    public List <OrdemServicoModel> buscarEquipamentoId(@PathVariable Long equipamentoId){
-        return ordemServicoService.buscarEquipamentoId(equipamentoId);
+    public List <OrdemServicoResponseDTO> buscarEquipamentoId(@PathVariable Long equipamentoId){
+        return ordemServicoService.buscarEquipamentoIdDto(equipamentoId);
     }
 
 

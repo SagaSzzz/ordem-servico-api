@@ -11,13 +11,9 @@ public class EquipamentoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "O nome é obrigatorio")
     private String nome;
-    @NotBlank(message = "A marca é obrigatoria")
     private String marca;
-    @NotBlank(message = "O modelo é obrigatorio")
     private String modelo;
-    @NotBlank(message = "O defeito é obrigatorio")
     private String defeito;
 
     public EquipamentoModel() {
