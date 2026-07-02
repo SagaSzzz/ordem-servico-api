@@ -4,6 +4,7 @@ import com.example.ordemService.dto.ClienteRequestDTO;
 import com.example.ordemService.dto.ClienteResponseDTO;
 import com.example.ordemService.model.ClienteModel;
 import com.example.ordemService.repository.ClienteRepository;
+import com.example.ordemService.repository.OrdemServicoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +13,11 @@ import java.util.List;
 public class ClienteService {
 
     private ClienteRepository clienteRepository;
-    public ClienteService(ClienteRepository clienteRepository) {
+    private OrdemServicoRepository ordemServicoRepository;
+
+    public ClienteService(ClienteRepository clienteRepository, OrdemServicoRepository ordemServicoRepository) {
         this.clienteRepository = clienteRepository;
+        this.ordemServicoRepository = ordemServicoRepository;
     }
 
     private ClienteResponseDTO converterParaDto(ClienteModel cliente) {
@@ -45,6 +49,10 @@ public class ClienteService {
     public void deletar(Long id){
       ClienteModel cliente = clienteRepository.findById(id)
               .orElseThrow(() -> new RuntimeException("CLIENTE NAO ENCONTRADO"));
+
+        if (!ordemServicoRepository.findByClienteId(id).isEmpty()){
+            throw new RuntimeException("NAO É POSSIVEL DELETAR ENQUANTO ESTIVER VINCULADO AO ORDEM DE SERVICO");
+        }
       clienteRepository.delete(cliente);
 
     }

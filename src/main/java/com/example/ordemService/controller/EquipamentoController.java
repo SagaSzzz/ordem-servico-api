@@ -4,6 +4,8 @@ import com.example.ordemService.dto.EquipamentoRequestDTO;
 import com.example.ordemService.dto.EquipamentoResponseDTO;
 import com.example.ordemService.service.EquipamentoService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,32 +21,33 @@ public class EquipamentoController {
     }
 
     @PostMapping
-    public EquipamentoResponseDTO adcEquip(@Valid @RequestBody EquipamentoRequestDTO dto) {
-        return equipamentoService.adcEquipDto(dto);
+    public ResponseEntity <EquipamentoResponseDTO> adcEquip(@Valid @RequestBody EquipamentoRequestDTO dto) {
+        EquipamentoResponseDTO equipamento = equipamentoService.adcEquipDto(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(equipamento);
     }
 
 
     @GetMapping
-    public List<EquipamentoResponseDTO> listarEquip() {
-        return equipamentoService.buscarEquipDto();
+    public ResponseEntity <List<EquipamentoResponseDTO>> listarEquip() {
+        return ResponseEntity.ok(equipamentoService.buscarEquipDto());
     }
 
 
     @GetMapping("/{id}")
-    public EquipamentoResponseDTO procurarId(@PathVariable Long id) {
-        return equipamentoService.procurarIdDto(id);
+    public ResponseEntity <EquipamentoResponseDTO> procurarId(@PathVariable Long id) {
+        return ResponseEntity.ok(equipamentoService.procurarIdDto(id));
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         equipamentoService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 
 
     @PutMapping("/{id}")
-    public EquipamentoResponseDTO atualizarEquipamento(@PathVariable Long id, @Valid @RequestBody EquipamentoRequestDTO dto) {
-
-        return equipamentoService.atualizarEquipamentoDto(id, dto);
+    public ResponseEntity <EquipamentoResponseDTO> atualizarEquipamento(@PathVariable Long id, @Valid @RequestBody EquipamentoRequestDTO dto) {
+        return ResponseEntity.ok(equipamentoService.atualizarEquipamentoDto(id, dto));
     }
 
 }

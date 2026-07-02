@@ -4,6 +4,7 @@ import com.example.ordemService.dto.EquipamentoRequestDTO;
 import com.example.ordemService.dto.EquipamentoResponseDTO;
 import com.example.ordemService.model.EquipamentoModel;
 import com.example.ordemService.repository.EquipamentoRepository;
+import com.example.ordemService.repository.OrdemServicoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 public class EquipamentoService {
 
     private EquipamentoRepository equipamentoRepository;
+    private OrdemServicoRepository ordemServicoRepository;
 
-    public EquipamentoService(EquipamentoRepository equipamentoRepository) {
+    public EquipamentoService(EquipamentoRepository equipamentoRepository, OrdemServicoRepository ordemServicoRepository) {
         this.equipamentoRepository = equipamentoRepository;
+        this.ordemServicoRepository = ordemServicoRepository;
     }
 
     private EquipamentoResponseDTO converterParaDto(EquipamentoModel equipamento) {
@@ -49,6 +52,11 @@ public class EquipamentoService {
     public void deletar(Long id){
         EquipamentoModel equipamento = equipamentoRepository.findById(id).
                 orElseThrow(()->new RuntimeException("EQUIPAMENTO NAO ENCONTRADO"));
+
+        if (!ordemServicoRepository.findByEquipamentoId(id).isEmpty()){
+            throw new RuntimeException("NAO É POSSIVEL DELETAR ENQUANTO ESTIVER VINCULADO AO ORDEM DE SERVICO");
+        }
+
         equipamentoRepository.delete(equipamento);
     }
     public EquipamentoResponseDTO atualizarEquipamentoDto(Long id, EquipamentoRequestDTO dto) {
