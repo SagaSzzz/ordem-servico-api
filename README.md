@@ -36,6 +36,8 @@ O sistema foi desenvolvido seguindo uma arquitetura em camadas:
 - Status da ordem controlado com Enum
 - Validações de dados com Bean Validation
 - Tratamento de erros com ControllerAdvice
+- Utiliza DTOs para entrada e saída de dados
+- respostas com `ResponseEntity`
 
 ## Estrutura do projeto
 
@@ -244,8 +246,7 @@ Em uma melhoria futura, os status podem ser implementados com `Enum`.
 
 ## Melhorias futuras
 
-- Utilizar DTOs para entrada e saída de dados
-- Padronizar respostas com `ResponseEntity`
+
 - Adicionar documentação com Swagger/OpenAPI
 - Criar testes automatizados
 
