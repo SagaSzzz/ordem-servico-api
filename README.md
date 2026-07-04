@@ -38,6 +38,15 @@ O sistema foi desenvolvido seguindo uma arquitetura em camadas:
 - Tratamento de erros com ControllerAdvice
 - Utiliza DTOs para entrada e saída de dados
 - respostas com `ResponseEntity`
+- Swagger/OpenAPI
+
+## Documentação da API
+
+A API possui documentação interativa gerada com Swagger/OpenAPI.
+
+Após iniciar a aplicação, acesse:
+
+http://localhost:8080/swagger-ui/index.html
 
 ## Estrutura do projeto
 
@@ -182,13 +191,10 @@ http://localhost:8080
   "fim": null,
   "status": "ABERTA",
   "valor": 170,
-  "cliente": {
-    "id": 1
-  },
-  "equipamento": {
-    "id": 1
-  }
+  "clienteId": 1,
+  "equipamentoId": 1
 }
+
 ```
 
 ### Atualizar ordem de serviço
@@ -200,12 +206,8 @@ http://localhost:8080
   "fim": "2026-06-15",
   "status": "FINALIZADA",
   "valor": 220,
-  "cliente": {
-    "id": 1
-  },
-  "equipamento": {
-    "id": 1
-  }
+  "clienteId": 1,
+  "equipamentoId": 1
 }
 ```
 
