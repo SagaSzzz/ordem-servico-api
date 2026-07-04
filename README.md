@@ -248,8 +248,6 @@ Em uma melhoria futura, os status podem ser implementados com `Enum`.
 
 ## Melhorias futuras
 
-
-- Adicionar documentação com Swagger/OpenAPI
 - Criar testes automatizados
 
 ## Autor
