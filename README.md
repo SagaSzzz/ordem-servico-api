@@ -3,22 +3,21 @@ API REST desenvolvida com Java e Spring Boot para gerenciamento de clientes, equ
 
 ## Tecnologias utilizadas:
 
-- Java
+- Java 21
 - Spring Boot
 - Spring Data JPA
 - MySQL
 - Maven
 - Postman
 - Git/GitHub
+- Bean Validation
+- Swagger/OpenAPI
 
 ## Sobre o projeto
 
-O projeto consiste em uma API REST para controle de ordens de serviço.
+API REST desenvolvida com Java e Spring Boot para gerenciamento de clientes, equipamentos e ordens de serviço.
 
-A aplicação permite cadastrar clientes, equipamentos e ordens de serviço, relacionando cada ordem a um cliente e a um equipamento. Também possui consultas personalizadas para buscar ordens por status, cliente e equipamento.
-
-O sistema foi desenvolvido seguindo uma arquitetura em camadas:
-
+O projeto utiliza arquitetura em camadas, persistência em MySQL, relacionamento entre entidades com JPA, DTOs para entrada e saída de dados, validações com Bean Validation, tratamento global de erros, respostas HTTP padronizadas com ResponseEntity e documentação interativa com Swagger/OpenAPI.
 - Model
 - Repository
 - Service
@@ -37,7 +36,7 @@ O sistema foi desenvolvido seguindo uma arquitetura em camadas:
 - Validações de dados com Bean Validation
 - Tratamento de erros com ControllerAdvice
 - Utiliza DTOs para entrada e saída de dados
-- respostas com `ResponseEntity`
+- Respostas HTTP padronizadas com `ResponseEntity`
 - Swagger/OpenAPI
 
 ## Documentação da API
@@ -56,13 +55,15 @@ src
      ├── java
      │   └── com.example.ordemService
      │       ├── controller
+     │       ├── dto
+     │       ├── enums
+     │       ├── exceptions
      │       ├── model
      │       ├── repository
-     │       └── service
+     │       ├── service
+     │       └── tratamentoDeErros
      └── resources
-         ├── application-example.properties
-         └── application.properties
-```
+         └── application-example.properties
 
 ## Pré-requisitos
 
@@ -159,7 +160,15 @@ http://localhost:8080
 | GET | `/ordemServico/cliente/{clienteId}` | Busca ordens por cliente |
 | GET | `/ordemServico/equipamento/{equipamentoId}` | Busca ordens por equipamento |
 
+## Como testar
+
+1. Crie um cliente usando `POST /cliente`
+2. Crie um equipamento usando `POST /equipamento`
+3. Crie uma ordem de serviço usando `POST /ordemServico`, informando `clienteId` e `equipamentoId`
+4. Consulte as ordens por status, cliente ou equipamento
+
 ## Exemplos de requisição
+
 
 ### Criar cliente
 
@@ -243,8 +252,6 @@ EM_ANDAMENTO
 FINALIZADA
 CANCELADA
 ````
-
-Em uma melhoria futura, os status podem ser implementados com `Enum`.
 
 ## Melhorias futuras
 
