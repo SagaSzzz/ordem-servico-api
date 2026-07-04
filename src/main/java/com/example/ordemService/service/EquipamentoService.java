@@ -2,6 +2,8 @@ package com.example.ordemService.service;
 
 import com.example.ordemService.dto.EquipamentoRequestDTO;
 import com.example.ordemService.dto.EquipamentoResponseDTO;
+import com.example.ordemService.exceptions.EquipamentoNaoEncontradoException;
+import com.example.ordemService.exceptions.VinculadoException;
 import com.example.ordemService.model.EquipamentoModel;
 import com.example.ordemService.repository.EquipamentoRepository;
 import com.example.ordemService.repository.OrdemServicoRepository;
@@ -44,24 +46,24 @@ public class EquipamentoService {
 
     public EquipamentoResponseDTO procurarIdDto(Long id){
         EquipamentoModel equipamento =  equipamentoRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("EQUIPAMENTO NAO ENCONTRADO"));
+                .orElseThrow(()->new EquipamentoNaoEncontradoException());
         return converterParaDto(equipamento);
     }
 
 
     public void deletar(Long id){
         EquipamentoModel equipamento = equipamentoRepository.findById(id).
-                orElseThrow(()->new RuntimeException("EQUIPAMENTO NAO ENCONTRADO"));
+                orElseThrow(()->new EquipamentoNaoEncontradoException());
 
         if (!ordemServicoRepository.findByEquipamentoId(id).isEmpty()){
-            throw new RuntimeException("NAO É POSSIVEL DELETAR ENQUANTO ESTIVER VINCULADO AO ORDEM DE SERVICO");
+            throw new VinculadoException("NAO É POSSIVEL DELETAR ENQUANTO EQUIPAMENTO ESTIVER VINCULADO AO ORDEM DE SERVICO");
         }
 
         equipamentoRepository.delete(equipamento);
     }
     public EquipamentoResponseDTO atualizarEquipamentoDto(Long id, EquipamentoRequestDTO dto) {
         EquipamentoModel equipamentoAtualizado = equipamentoRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("EQUIPAMENTO NAO ENCONTRADO"));
+                .orElseThrow(()->new EquipamentoNaoEncontradoException());
         equipamentoAtualizado.setMarca(dto.getMarca());
         equipamentoAtualizado.setDefeito(dto.getDefeito());
         equipamentoAtualizado.setNome(dto.getNome());

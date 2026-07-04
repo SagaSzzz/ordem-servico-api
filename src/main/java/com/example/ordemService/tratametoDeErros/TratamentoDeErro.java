@@ -1,6 +1,10 @@
-package com.example.ordemService.exception;
+package com.example.ordemService.tratametoDeErros;
 
 
+import com.example.ordemService.exceptions.ClienteNaoEncontradoException;
+import com.example.ordemService.exceptions.EquipamentoNaoEncontradoException;
+import com.example.ordemService.exceptions.OrdemServicoNaoEncontradoException;
+import com.example.ordemService.exceptions.VinculadoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,12 +29,23 @@ public class TratamentoDeErro {
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(RuntimeException.class)
-     public Map<String, String> tratarErroNaoEncontrado(RuntimeException erro){
+    @ExceptionHandler({
+            ClienteNaoEncontradoException.class,
+            EquipamentoNaoEncontradoException.class,
+            OrdemServicoNaoEncontradoException.class
+    })
+    public Map<String, String> tratarNaoEncotrado(RuntimeException erro) {
+        Map<String, String> resposta = new HashMap<>();
+        resposta.put("erro", erro.getMessage());
+        return resposta;
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(VinculadoException.class)
+    public Map<String, String> tratarVinculado(VinculadoException erro) {
         Map <String, String> resposta = new HashMap<>();
         resposta.put("erro", erro.getMessage());
         return resposta;
-
     }
 
 }

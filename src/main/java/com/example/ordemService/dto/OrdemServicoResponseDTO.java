@@ -16,51 +16,49 @@ public class OrdemServicoResponseDTO {
     private Double valor;
     private LocalDate comeco;
     private LocalDate fim;
-    private ClienteModel cliente;
-    private EquipamentoModel equipamento;
+    private Long clienteId;
+    private Long equipamentoId;
 
-    public OrdemServicoResponseDTO(Long id, String descProblema, StatusOrdem status, Double valor, LocalDate comeco, LocalDate fim, ClienteModel cliente, EquipamentoModel equipamento) {
+    public OrdemServicoResponseDTO(Long id, String descProblema, StatusOrdem status, Double valor, LocalDate comeco, LocalDate fim, Long clienteId, Long equipamentoId) {
         this.id = id;
         this.descProblema = descProblema;
         this.status = status;
         this.valor = valor;
         this.comeco = comeco;
         this.fim = fim;
-        this.cliente = cliente;
-        this.equipamento = equipamento;
+        this.clienteId = clienteId;
+        this.equipamentoId = equipamentoId;
     }
 
-    public Long getId() {
-        return id;
+    public Long getEquipamentoId() {
+        return equipamentoId;
     }
 
-    public String getDescProblema() {
-        return descProblema;
-    }
-
-    public StatusOrdem getStatus() {
-        return status;
-    }
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public LocalDate getComeco() {
-        return comeco;
+    public Long getClienteId() {
+        return clienteId;
     }
 
     public LocalDate getFim() {
         return fim;
     }
 
-    public ClienteModel getCliente() {
-        return cliente;
+    public LocalDate getComeco() {
+        return comeco;
     }
 
-    public EquipamentoModel getEquipamento() {
-        return equipamento;
+    public Double getValor() {
+        return valor;
     }
 
+    public StatusOrdem getStatus() {
+        return status;
+    }
 
+    public String getDescProblema() {
+        return descProblema;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

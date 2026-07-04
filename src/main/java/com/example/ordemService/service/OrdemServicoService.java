@@ -3,6 +3,9 @@ package com.example.ordemService.service;
 import com.example.ordemService.dto.OrdemServicoRequestDTO;
 import com.example.ordemService.dto.OrdemServicoResponseDTO;
 import com.example.ordemService.enums.StatusOrdem;
+import com.example.ordemService.exceptions.ClienteNaoEncontradoException;
+import com.example.ordemService.exceptions.EquipamentoNaoEncontradoException;
+import com.example.ordemService.exceptions.OrdemServicoNaoEncontradoException;
 import com.example.ordemService.model.ClienteModel;
 import com.example.ordemService.model.EquipamentoModel;
 import com.example.ordemService.model.OrdemServicoModel;
@@ -33,16 +36,16 @@ public class OrdemServicoService {
     private OrdemServicoResponseDTO converterDTO(OrdemServicoModel ordem) {
         return new OrdemServicoResponseDTO(ordem.getId(), ordem.getDescProblema(),
                 ordem.getStatus(), ordem.getValor(), ordem.getComeco(),
-                ordem.getFim(), ordem.getCliente(), ordem.getEquipamento());
+                ordem.getFim(), ordem.getCliente().getId(), ordem.getEquipamento().getId());
     }
 
     private ClienteModel buscarClientePorId(Long clienteId) {
-        return clienteRepository.findById(clienteId).orElseThrow(() -> new RuntimeException("CLIENTE NAO ENCONTADO"));
+        return clienteRepository.findById(clienteId).orElseThrow(() -> new ClienteNaoEncontradoException());
     }
 
     private EquipamentoModel buscarEquipamentoPorId(Long equipamentoId) {
         return equipamentoRepository.findById(equipamentoId)
-                .orElseThrow(() -> new RuntimeException("EQUIPAMENTO NAO ENCONTRADO"));
+                .orElseThrow(() -> new EquipamentoNaoEncontradoException());
     }
 
 
@@ -75,7 +78,7 @@ public class OrdemServicoService {
 
     public OrdemServicoResponseDTO procurarIdDto(Long id) {
         OrdemServicoModel ordem = ordemServicoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("NAO ENCONTRADO"));
+                .orElseThrow(() -> new OrdemServicoNaoEncontradoException());
         return converterDTO(ordem);
     }
 
@@ -85,7 +88,7 @@ public class OrdemServicoService {
         EquipamentoModel equipamento = buscarEquipamentoPorId(dto.getEquipamentoId());
 
         OrdemServicoModel atualizado = ordemServicoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("NAO ENCONNTRADO"));
+                .orElseThrow(() -> new OrdemServicoNaoEncontradoException());
 
         atualizado.setValor(dto.getValor());
         atualizado.setComeco(dto.getComeco());
@@ -103,7 +106,7 @@ public class OrdemServicoService {
 
     public void deletar(Long id) {
         OrdemServicoModel busca = ordemServicoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("NAO ENCONNTRADO"));
+                .orElseThrow(() -> new OrdemServicoNaoEncontradoException());
         ordemServicoRepository.delete(busca);
     }
 

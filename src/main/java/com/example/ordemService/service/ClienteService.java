@@ -2,6 +2,8 @@ package com.example.ordemService.service;
 
 import com.example.ordemService.dto.ClienteRequestDTO;
 import com.example.ordemService.dto.ClienteResponseDTO;
+import com.example.ordemService.exceptions.ClienteNaoEncontradoException;
+import com.example.ordemService.exceptions.VinculadoException;
 import com.example.ordemService.model.ClienteModel;
 import com.example.ordemService.repository.ClienteRepository;
 import com.example.ordemService.repository.OrdemServicoRepository;
@@ -42,23 +44,23 @@ public class ClienteService {
 
     public ClienteResponseDTO procurarClienteDto(Long id){
         ClienteModel cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("CLIENTE NAO ENCONTRADO"));
+                .orElseThrow(() -> new ClienteNaoEncontradoException());
          return converterParaDto(cliente);
     }
 
     public void deletar(Long id){
       ClienteModel cliente = clienteRepository.findById(id)
-              .orElseThrow(() -> new RuntimeException("CLIENTE NAO ENCONTRADO"));
+              .orElseThrow(() -> new ClienteNaoEncontradoException());
 
         if (!ordemServicoRepository.findByClienteId(id).isEmpty()){
-            throw new RuntimeException("NAO É POSSIVEL DELETAR ENQUANTO ESTIVER VINCULADO AO ORDEM DE SERVICO");
+            throw new VinculadoException("NAO É POSSIVEL DELETAR ENQUANTO CLIENTE ESTIVER VINCULADO AO ORDEM DE SERVICO");
         }
       clienteRepository.delete(cliente);
 
     }
     public ClienteResponseDTO atualizarDadosDto(Long id, ClienteRequestDTO dto){
         ClienteModel existente = clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("CLIENTE NAO ENCONTRADO"));
+                .orElseThrow(() -> new ClienteNaoEncontradoException());
                 existente.setEmail(dto.getEmail());
                 existente.setNome(dto.getNome());
                 existente.setTelefone(dto.getTelefone());
